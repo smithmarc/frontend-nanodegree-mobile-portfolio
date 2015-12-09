@@ -1,73 +1,72 @@
-## Website Performance Optimization portfolio project
+## P4: Website Performance Optimization
+---
+### Instructions:
 
-Your challenge, if you wish to accept it (and we sure hope you will), is to optimize this online portfolio for speed! In particular, optimize the critical rendering path and make this page render as quickly as possible by applying the techniques you've picked up in the [Critical Rendering Path course](https://www.udacity.com/course/ud884).
+Download and unzip the files.
 
-To get started, check out the repository, inspect the code,
+For Part 1:
 
-### Getting started
+* Open `'index.html'` in a web browser.
 
-####Part 1: Optimize PageSpeed Insights score for index.html
+For Part 2:
 
-Some useful tips to help you get started:
+* Open `views > pizza.html` in a web browser.
 
-1. Check out the repository
-1. To inspect the site on your phone, you can run a local server
+---
+### Latest Scores:
 
-  ```bash
-  $> cd /path/to/your-project-folder
-  $> python -m SimpleHTTPServer 8080
-  ```
+Part 1:
 
-1. Open a browser and visit localhost:8080
-1. Download and install [ngrok](https://ngrok.com/) to make your local server accessible remotely.
+Mobile: 95/100 ||
+Desktop: 98/100
 
-  ``` bash
-  $> cd /path/to/your-project-folder
-  $> ngrok http 8080
-  ```
+Part 2:
 
-1. Copy the public URL ngrok gives you and try running it through PageSpeed Insights! Optional: [More on integrating ngrok, Grunt and PageSpeed.](http://www.jamescryer.com/2014/06/12/grunt-pagespeed-and-ngrok-locally-testing/)
+Average: 7.55ms to generate last 10 frames.
 
-Profile, optimize, measure... and then lather, rinse, and repeat. Good luck!
+0.75ms to resize.
 
-####Part 2: Optimize Frames per Second in pizza.html
+---
+### Part 1:
 
-To optimize views/pizza.html, you will need to modify views/js/main.js until your frames per second rate is 60 fps or higher. You will find instructive comments in main.js. 
+In `index.html` I performed a number of enhancements. From minifying the CSS and JS, to positioning
+the JS at the bottom of the page with `'async'` tags.
 
-You might find the FPS Counter/HUD Display useful in Chrome developer tools described here: [Chrome Dev Tools tips-and-tricks](https://developer.chrome.com/devtools/docs/tips-and-tricks).
+I had a problem using `ngrok` which involved the extremely slow loading of the pizzeria image, so I resized that image. As the image size decreased, so did the loading time.
 
-### Optimization Tips and Tricks
-* [Optimizing Performance](https://developers.google.com/web/fundamentals/performance/ "web performance")
-* [Analyzing the Critical Rendering Path](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/analyzing-crp.html "analyzing crp")
-* [Optimizing the Critical Rendering Path](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/optimizing-critical-rendering-path.html "optimize the crp!")
-* [Avoiding Rendering Blocking CSS](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/render-blocking-css.html "render blocking css")
-* [Optimizing JavaScript](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/adding-interactivity-with-javascript.html "javascript")
-* [Measuring with Navigation Timing](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/measure-crp.html "nav timing api"). We didn't cover the Navigation Timing API in the first two lessons but it's an incredibly useful tool for automated page profiling. I highly recommend reading.
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/eliminate-downloads.html">The fewer the downloads, the better</a>
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/optimize-encoding-and-transfer.html">Reduce the size of text</a>
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/image-optimization.html">Optimize images</a>
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching.html">HTTP caching</a>
+I found that the biggest factor in terms of performance of the site was actually down to the font. I started using the `'webfont.js'` file and also positioned that at the bottom of the page. This allowed the font to be called in a much more efficient manner and allowed the site to achieve Insight PageScores above 90 for both Mobile and Desktop versions.
 
-### Customization with Bootstrap
-The portfolio was built on Twitter's <a href="http://getbootstrap.com/">Bootstrap</a> framework. All custom styles are in `dist/css/portfolio.css` in the portfolio repo.
+### Part 2:
 
-* <a href="http://getbootstrap.com/css/">Bootstrap's CSS Classes</a>
-* <a href="http://getbootstrap.com/components/">Bootstrap's Components</a>
+For `pizza.html`, I found that `querySelectorAll` was an inefficient function and started using `getElementsbyClassName`. This required me to adjust the code slightly as they both call classes differently. (`querySelectorAll('.mover')` compared to `getElementsbyClassName('mover')`).
+[http://jsperf.com/getelementbyid-vs-queryselector/137]
 
-### Sample Portfolios
+Further into `main.js` we see that the `EventListener` that generates the pizzas on load generates 200 pizzas. This is a little overkill. I decided to use 32 pizzas, which works on a large desktop screen, but realised this didn't work for a mobile sized screen. I settled on 64 pizzas.
 
-Feeling uninspired by the portfolio? Here's a list of cool portfolios I found after a few minutes of Googling.
+The site now functioned within the 60fps window. We still had one step left though, which was to make sure the time to resize the pizzas was less than 5ms which we hadn't changed anything for yet.
 
-* <a href="http://www.reddit.com/r/webdev/comments/280qkr/would_anybody_like_to_post_their_portfolio_site/">A great discussion about portfolios on reddit</a>
-* <a href="http://ianlunn.co.uk/">http://ianlunn.co.uk/</a>
-* <a href="http://www.adhamdannaway.com/portfolio">http://www.adhamdannaway.com/portfolio</a>
-* <a href="http://www.timboelaars.nl/">http://www.timboelaars.nl/</a>
-* <a href="http://futoryan.prosite.com/">http://futoryan.prosite.com/</a>
-* <a href="http://playonpixels.prosite.com/21591/projects">http://playonpixels.prosite.com/21591/projects</a>
-* <a href="http://colintrenter.prosite.com/">http://colintrenter.prosite.com/</a>
-* <a href="http://calebmorris.prosite.com/">http://calebmorris.prosite.com/</a>
-* <a href="http://www.cullywright.com/">http://www.cullywright.com/</a>
-* <a href="http://yourjustlucky.com/">http://yourjustlucky.com/</a>
-* <a href="http://nicoledominguez.com/portfolio/">http://nicoledominguez.com/portfolio/</a>
-* <a href="http://www.roxannecook.com/">http://www.roxannecook.com/</a>
-* <a href="http://www.84colors.com/portfolio.html">http://www.84colors.com/portfolio.html</a>
+This turned out to be a fairly simple fix. We just needed to make the pizzas a percentage value in the `changePizzaSizes` function. This gave us extremely quick loading times of less than 1ms.
+
+I also added an element to my CSS which could cause some issues with smaller devices. `backface-visibility: hidden;`. This tip came from the P4 Office Hours.
+
+---
+### References:
+
+Browser Rendering Optimization
+<br>[https://www.udacity.com/course/viewer#!/c-ud860-nd]()
+
+getElementsbyClassName vs querySelectorAll
+<br>[http://jsperf.com/getelementbyid-vs-queryselector/137]()
+
+Office Hours: P4
+<br>[https://plus.google.com/events/c8eah6f0d0t9eretebpm7dqi0ok?authkey=CKaNhtb0quvqKA]()
+[https://github.com/udacity/fend-office-hours/tree/master/Web%20Optimization/Effective%20Optimizations%20for%2060%20FPS]()
+
+Performance
+<br>[https://developers.google.com/web/fundamentals/performance/?hl=en]()
+
+Tips and Tricks
+<br>[https://developer.chrome.com/devtools/docs/tips-and-tricks]()
+
+Website Performance Optimization
+<br>[https://www.udacity.com/course/viewer#!/c-ud884-nd]()
